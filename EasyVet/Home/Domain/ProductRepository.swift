@@ -6,5 +6,5 @@
 //
 
 protocol ProductRepository {
-    func getAllProducts() -> [Product]
+    func getAllProducts() async throws -> [Product]
 }

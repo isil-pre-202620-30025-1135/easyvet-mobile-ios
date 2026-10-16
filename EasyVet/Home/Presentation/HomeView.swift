@@ -12,7 +12,7 @@ struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
     
     var body: some View {
-        VStack  {
+        ScrollView  {
             LazyVGrid (columns: [
                 GridItem(.flexible()),
                 GridItem(.flexible())
@@ -23,7 +23,9 @@ struct HomeView: View {
                 .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
-            Spacer()
+        }
+        .task {
+            await viewModel.loadProducts()
         }
         
         
