@@ -10,15 +10,30 @@ import Combine
 class HomeViewModel: ObservableObject {
     
     @Published private(set) var products: [Product] = []
+    
+    @Published private(set) var favoriteProductsId: [Int] = []
+    
     private let repository: ProductRepository = ProductRepositoryImpl.shared
     
     
     func loadProducts() async {
         do {
             products = try await repository.getAllProducts()
-        } catch let error {
+        } catch _ {
             
         }
     }
+    
+    func toggleFavorite(id: Int) {
+        if !favoriteProductsId.contains(id) {
+            favoriteProductsId.append(id)
+        } else {
+            favoriteProductsId.removeAll { item in
+                item == id
+            }
+        }
+    }
+    
+   
         
 }

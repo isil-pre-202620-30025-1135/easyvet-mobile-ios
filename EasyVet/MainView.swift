@@ -23,7 +23,7 @@ struct MainView: View {
             }
             
             Tab {
-                Text("Wishlist")
+                FavoritesView()
             } label: {
                 Label("Whislist", systemImage: "heart")
             }
