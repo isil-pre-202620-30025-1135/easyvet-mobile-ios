@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ProductCard: View {
     let product: Product
+    let isFavorite: Bool
     let onToggleFavorite: () -> Void
     
-    @State var isFavorite = false
     
     var body: some View {
         ZStack (alignment: .topTrailing){
@@ -43,7 +43,7 @@ struct ProductCard: View {
             }
             
             Button {
-                isFavorite.toggle()
+                onToggleFavorite()
             } label: {
                 Image(systemName: isFavorite ? "heart.fill" : "heart")
                     .resizable()
@@ -66,6 +66,6 @@ struct ProductCard: View {
 
 #Preview {
     ProductCard(
-        product:  Product(id: 1, name: "Royal Canin Maxi Puppy", price: 42.5, rating: 4.8, image: "https://i.imgur.com/WkZEOU6.png")
+        product:  Product(id: 1, name: "Royal Canin Maxi Puppy", price: 42.5, rating: 4.8, image: "https://i.imgur.com/WkZEOU6.png"), isFavorite: false
     ) {}
 }

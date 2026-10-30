@@ -18,8 +18,8 @@ struct HomeView: View {
                 GridItem(.flexible())
             ]) {
                 ForEach(viewModel.products) { product in
-                    ProductCard(product: product) {
-                        viewModel.toggleFavorite(id: product.id)
+                    ProductCard(product: product, isFavorite: viewModel.isFavorite(productId: product.id)) {
+                        try? viewModel.toggleFavorite(productId: product.id)
                     }
                 }
                 .listRowSeparator(.hidden)

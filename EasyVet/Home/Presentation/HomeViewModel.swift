@@ -13,25 +13,39 @@ class HomeViewModel: ObservableObject {
     
     @Published private(set) var favoriteProductsId: [Int] = []
     
-    private let repository: ProductRepository = ProductRepositoryImpl.shared
+    var favoriteProducts: [Product] {
+        get {
+            return products.filter { product in
+                isFavorite(productId: product.id)
+            }
+        }
+    }
     
+    private let repository = ProductRepositoryImpl.shared
+    private let favoriteRepository = FavoriteRepositoryImpl.shared
     
     func loadProducts() async {
         do {
             products = try await repository.getAllProducts()
+            favoriteProductsId = try favoriteRepository.getFavorites()
         } catch _ {
             
         }
     }
     
-    func toggleFavorite(id: Int) {
-        if !favoriteProductsId.contains(id) {
-            favoriteProductsId.append(id)
+    func toggleFavorite(productId: Int) throws {
+        if (isFavorite(productId: productId)) {
+            try favoriteRepository.removeFavorite(productId: productId)
         } else {
-            favoriteProductsId.removeAll { item in
-                item == id
-            }
+            try favoriteRepository.addFavorite(productId: productId)
         }
+        
+        favoriteProductsId = try favoriteRepository.getFavorites()
+
+    }
+    
+    func isFavorite(productId: Int) -> Bool {
+        return favoriteProductsId.contains([productId])
     }
     
    

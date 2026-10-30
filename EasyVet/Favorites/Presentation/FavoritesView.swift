@@ -16,7 +16,7 @@ struct FavoritesView: View {
         ScrollView {
             LazyVStack {
                 
-                ForEach(viewModel.products) { product in
+                ForEach(viewModel.favoriteProducts) { product in
                     HStack {
                         
                         AsyncImage(url: URL(string: product.image)) { phase in
@@ -34,10 +34,11 @@ struct FavoritesView: View {
                         }
                         .frame(width: 96, height: 96)
                         
-                        VStack {
+                        VStack (alignment: .leading) {
                             Text(product.name)
                             Text("\(product.price, specifier: "%.2f")").bold()
                         }
+                        Spacer()
                     }
                 }
             }

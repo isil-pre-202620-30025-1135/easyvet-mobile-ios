@@ -9,10 +9,12 @@ import SwiftData
 import Foundation
 
 class FavoriteDao {
-    private let context: ModelContext
+    private var context: ModelContext
     
-    init(context: ModelContext) {
-        self.context = context
+    static let shared = FavoriteDao()
+    
+    private init() {
+       context = PersistentContainer.shared.container.mainContext
     }
     
     func getFavorites() throws -> [FavoriteEntity] {
