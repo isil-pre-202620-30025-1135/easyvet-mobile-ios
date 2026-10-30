@@ -15,8 +15,7 @@ class PersistentContainer {
     
     private init() {
         do {
-            let storeURL = URL.documentsDirectory.appending(path: "database.sqlite")
-            let config = ModelConfiguration(url: storeURL)
+            let config = ModelConfiguration(for: FavoriteEntity.self)
             container = try ModelContainer(for: FavoriteEntity.self, configurations: config)
         } catch {
             fatalError("Failed to configure SwiftData container.")
